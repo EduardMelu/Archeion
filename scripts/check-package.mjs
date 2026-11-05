@@ -4,6 +4,7 @@
 import { execFileSync, spawn } from "node:child_process";
 import {
   cpSync,
+  existsSync,
   lstatSync,
   mkdirSync,
   mkdtempSync,
