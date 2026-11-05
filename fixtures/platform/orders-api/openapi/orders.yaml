@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info:
+  title: Orders API
+  version: "1.0"
+paths:
+  /orders:
+    post:
+      operationId: placeOrder
+      responses:
+        "202":
+          description: Accepted
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: The order

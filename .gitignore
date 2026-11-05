@@ -1,0 +1,34 @@
+# Dependencies and generated build output
+node_modules/
+dist/
+bin/
+obj/
+target/
+coverage/
+*.tsbuildinfo
+*.tgz
+**/.generated/
+
+# Test output and local captures
+test-results/
+playwright-report/
+reports/captures/
+.playwright-mcp/
+*.log
+
+# Local configuration and agent session artifacts
+.env
+.env.*
+!.env.example
+.agents/
+.codex/
+.claude/
+.superpowers/
+.vscode/
+.idea/
+.impeccable/*
+!.impeccable/design.json
+packages/**/.impeccable/
+
+# Intentional contributor guide, including with global agent-file ignores.
+!/AGENTS.md

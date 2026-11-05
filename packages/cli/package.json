@@ -1,0 +1,50 @@
+{
+  "name": "archeion",
+  "version": "0.1.0",
+  "description": "Generate and explore an architecture map from reviewed knowledge and code evidence.",
+  "license": "MIT",
+  "author": "Eduard Melu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardMelu/Archeion.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/EduardMelu/Archeion#readme",
+  "bugs": {
+    "url": "https://github.com/EduardMelu/Archeion/issues"
+  },
+  "keywords": [
+    "architecture",
+    "visualization",
+    "multi-repo",
+    "code-review",
+    "knowledge"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "bin": {
+    "archeion": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node scripts/bundle.mjs"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "13.1.0",
+    "commander": "15.0.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-parse": "11.0.0",
+    "sirv": "3.0.2",
+    "unified": "11.0.5",
+    "web-tree-sitter": "0.27.1",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@archeion/core": "0.1.0"
+  }
+}

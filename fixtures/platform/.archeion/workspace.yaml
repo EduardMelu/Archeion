@@ -1,0 +1,10 @@
+archeion: 1
+id: acme
+name: Acme platform (synthetic)
+repos:
+  - id: shop-web
+    path: shop-web
+  - id: orders-api
+    path: orders-api
+  - id: fulfilment-worker
+    path: fulfilment-worker

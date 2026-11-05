@@ -1,0 +1,1153 @@
+/* Map-led instruments: readable controls around a luminous, stable architecture. */
+
+.shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 278px minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+  padding: 16px 20px 12px;
+}
+
+.main[data-details="true"] {
+  grid-template-columns: 278px minmax(0, 1fr) 310px;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------ Frame */
+
+.frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+}
+
+.frameGrow {
+  flex: 1 1 0;
+}
+
+/* The eye's frame answers the question being asked, so the outline yields room to it. */
+.frameSecondary {
+  flex: 0 1 30%;
+  min-height: 112px;
+}
+
+.frameTitle {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  overflow: hidden;
+  padding: 13px 14px 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font: 600 var(--text-lg) / 1.4 var(--font-head);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The scroll area starts below the notched title, so rows never run under it. */
+.frameBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+  overflow-y: auto;
+  padding: 14px;
+}
+
+/* ------------------------------------------------------------ Top bar */
+
+.topbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 24px;
+  min-width: 0;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.brand {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  color: var(--accent);
+  font: 600 var(--text-lg) / 1 var(--font-head);
+  letter-spacing: 0.14em;
+}
+
+.crumbs {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.crumbs ol {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.crumbs li {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.crumbs li + li::before {
+  content: "/";
+  flex: none;
+  padding: 0 var(--space-1);
+  color: var(--line-main);
+  font-family: var(--font-mono);
+}
+
+.crumb {
+  overflow: hidden;
+  padding: 3px 6px;
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 150ms var(--ease-out);
+}
+
+.crumb:hover {
+  color: var(--text);
+}
+
+.crumb[aria-current="location"] {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.eyes {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 8px;
+  padding: 0 0 10px;
+}
+
+.eye {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font: 500 var(--text-md) / 1 var(--font-head);
+  letter-spacing: 0.03em;
+  transition:
+    background 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+
+.eye[data-eye="atlas"] {
+  --eye-color: var(--eye-atlas);
+}
+.eye[data-eye="tracer"] {
+  --eye-color: var(--eye-tracer);
+}
+.eye[data-eye="radar"] {
+  --eye-color: var(--eye-radar);
+}
+.eye[data-eye="sonar"] {
+  --eye-color: var(--eye-sonar);
+}
+.eye > svg {
+  color: var(--eye-color);
+  flex: none;
+}
+.eyeCopy {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+}
+.eye strong {
+  color: var(--text);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+.eyePurpose {
+  font: 400 var(--text-sm) / 1 var(--font-label);
+}
+
+.eye:hover {
+  background: var(--raised);
+}
+
+.eye[aria-pressed="true"] {
+  border-color: var(--eye-color);
+  background: color-mix(in srgb, var(--eye-color) 8%, var(--panel));
+  color: var(--eye-color);
+}
+
+.eye kbd {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+}
+
+.tools {
+  display: flex;
+  flex: none;
+  gap: 2px;
+}
+
+.iconButton {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition:
+    color 150ms var(--ease-out),
+    border-color 150ms var(--ease-out);
+}
+
+.iconButton:hover:not(:disabled) {
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.iconButton:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.iconButton[aria-pressed="true"] {
+  border-color: var(--line-main);
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------ Map */
+
+.mapFrame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  margin-top: 0;
+}
+
+.mapHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 14px;
+}
+.mapHeading h1 {
+  font: 600 24px / 1.2 var(--font-head);
+  overflow-wrap: anywhere;
+}
+.mapHeading p {
+  color: var(--text-dim);
+  margin-top: 6px;
+  font-size: var(--text-sm);
+}
+.mapNavigation {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+.mapNavigation :where(.button) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 10px;
+}
+.atlasIntro {
+  padding: 6px 4px 10px;
+}
+.atlasIntro h2 {
+  font: 600 22px / 1.3 var(--font-head);
+}
+.atlasIntro p {
+  color: var(--text-dim);
+  margin-top: 10px;
+  line-height: 1.65;
+}
+.repoStrip {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.repoChip {
+  border: 1px solid var(--line);
+  padding: 4px 7px;
+  font-size: var(--text-xs);
+  border-radius: 2px;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+.moreMenu {
+  position: relative;
+}
+.moreMenu > summary {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  min-height: 34px;
+  list-style: none;
+  cursor: pointer;
+}
+.moreMenu > summary::marker {
+  content: "";
+}
+.moreMenu > summary::-webkit-details-marker {
+  display: none;
+}
+.moreMenu > summary::before {
+  display: none;
+}
+.moreMenu > div {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 190px;
+  padding: 6px;
+  border: 1px solid var(--line-main);
+  border-radius: 3px;
+  background: var(--panel);
+  z-index: 20;
+  box-shadow: 0 10px 30px #0005;
+}
+.moreMenu :where(.row) {
+  min-height: 36px;
+}
+
+.mapColumn {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--ground);
+}
+
+.mapColumn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / 32px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / 2px 32px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 32px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 2px 32px no-repeat;
+}
+.mapLegend {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  pointer-events: none;
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+}
+.mapLegend > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.mapLegend > span:last-child {
+  margin-left: auto;
+}
+.serviceMark,
+.resourceMark {
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--accent);
+}
+.resourceMark {
+  border-color: var(--resource);
+  border-radius: 50%;
+}
+.mapHint {
+  position: absolute;
+  bottom: 14px;
+  left: 200px;
+  right: 14px;
+  color: var(--text-dim);
+  text-align: right;
+  pointer-events: none;
+  font-size: var(--text-xs);
+}
+.mapHint span {
+  margin: 0 5px;
+}
+.shell[data-eye="tracer"] .mapHint {
+  display: none;
+}
+
+.mapCanvas {
+  position: absolute;
+  inset: 0;
+}
+
+.mapNotice {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  padding: var(--space-5);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.minimap {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  width: 140px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  cursor: pointer;
+}
+
+.minimap svg {
+  display: block;
+  width: 100%;
+}
+
+.placed {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 60%;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-size: var(--text-sm);
+}
+
+/* ------------------------------------------------------------ Tracer caption */
+
+.caption {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 188px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 8px 10px;
+  border: 1px solid var(--line-main);
+  background: var(--panel);
+}
+
+.captionStep {
+  color: var(--text-dim);
+  font: 500 var(--text-sm) / 1 var(--font-mono);
+}
+
+.captionText {
+  font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+.controls {
+  display: flex;
+  gap: 2px;
+}
+
+/* ------------------------------------------------------------ Lists */
+
+.sectionTitle {
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--text-dim);
+  font: 600 var(--text-sm) / 1.3 var(--font-head);
+  letter-spacing: 0.03em;
+}
+
+.sectionTitle:first-child {
+  margin-top: 0;
+}
+
+.row {
+  scroll-margin-top: 92px;
+  display: block;
+  width: 100%;
+  padding: 5px 6px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms var(--ease-out);
+}
+
+.row:hover {
+  background: var(--raised);
+}
+
+.row[aria-current="true"] {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.rowTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px var(--space-2);
+  min-width: 0;
+  font-weight: 500;
+}
+
+.rowTitle > :first-child {
+  flex: 1 1 10ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.rowMeta {
+  display: block;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.note {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.body {
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------ Outline */
+
+.tree ul {
+  margin-left: 10px;
+  padding-left: 6px;
+  border-left: 1px solid var(--line);
+}
+
+.treeRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms var(--ease-out);
+}
+
+.treeRow:hover {
+  background: var(--raised);
+}
+
+.treeRow[aria-current="true"] {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.treeRow > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.treeRow > span:last-child:not(:first-child) {
+  flex: none;
+  white-space: nowrap;
+}
+
+.treeRow[data-resource="true"] {
+  color: var(--resource);
+}
+.partIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.partIdentity small {
+  color: var(--text-dim);
+  font: 400 var(--text-xs) / 1.3 var(--font-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* ------------------------------------------------------------ Tags and marks */
+
+.tag {
+  flex: none;
+  padding: 0 5px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  font: 400 var(--text-xs) / 1.5 var(--font-mono);
+  white-space: nowrap;
+}
+
+.tagStrong {
+  border-color: var(--line-main);
+  color: var(--text);
+}
+
+.tagAgent {
+  border-color: var(--agent);
+  color: var(--agent);
+}
+
+.tagWarn {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.diamond,
+.square {
+  display: inline-block;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  vertical-align: -0.5px;
+}
+
+.diamond {
+  background: var(--warn);
+  transform: rotate(45deg) scale(0.86);
+}
+
+.square {
+  background: var(--fail);
+}
+
+.problem {
+  display: flex;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: var(--text-sm);
+}
+
+.problem > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------ Inspector */
+
+.inspectorHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.inspectorName {
+  font: 600 var(--text-xl) / 1.25 var(--font-head);
+  overflow-wrap: anywhere;
+}
+
+.evidenceRow {
+  padding: 4px 0;
+  border-top: 1px solid var(--raised);
+}
+
+.evidenceRow:first-child {
+  border-top: 0;
+}
+
+.factGrid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.factGrid dt {
+  color: var(--text-dim);
+}
+
+.factGrid dd {
+  overflow-wrap: anywhere;
+}
+
+.linkRow {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: var(--space-2);
+  width: 100%;
+  padding: 3px 4px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms var(--ease-out);
+}
+
+.linkRow:hover {
+  background: var(--raised);
+}
+
+.verb {
+  color: var(--text-dim);
+  font: 400 var(--text-xs) / 1.8 var(--font-mono);
+}
+
+/* ------------------------------------------------------------ Forms */
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--ground);
+  caret-color: var(--accent);
+  transition: border-color 150ms var(--ease-out);
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: var(--line-main);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.textarea {
+  min-height: 62px;
+  resize: vertical;
+}
+
+.fieldLabel {
+  display: block;
+  margin: var(--space-2) 0 var(--space-1);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.button {
+  padding: 5px 10px;
+  border: 1px solid var(--line-main);
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  transition:
+    background 120ms var(--ease-out),
+    border-color 120ms var(--ease-out);
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--text-dim);
+  background: var(--raised);
+}
+
+.button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-2);
+}
+
+.inline {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.inline .input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.searchField {
+  position: relative;
+}
+
+.searchField .input {
+  padding-right: 34px;
+}
+
+.searchField .input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.searchClear {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  width: 26px;
+  height: 26px;
+  transform: translateY(-50%);
+}
+
+.treeMark svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* ------------------------------------------------------------ Coverage */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th {
+  padding: 2px 4px;
+  color: var(--text-dim);
+  font-weight: 400;
+  text-align: left;
+}
+
+.table td {
+  padding: 2px 4px;
+  border-top: 1px solid var(--raised);
+}
+
+.table td:not(:first-child),
+.table th:not(:first-child) {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.frame details > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  list-style: none;
+  text-underline-offset: 2px;
+}
+
+.frame details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.frame details > summary::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 150ms var(--ease-out);
+}
+
+.frame details[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.frame details > summary:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------ Status bar */
+
+.statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--space-4);
+  padding: 5px 12px;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.statusSentence {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.statusMeta {
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.statusButton {
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  background: none;
+  cursor: pointer;
+  font-size: var(--text-xs);
+}
+
+.statusButton:hover {
+  border-color: var(--text-dim);
+}
+
+.statusFailure {
+  display: flex;
+  align-items: baseline;
+  flex-basis: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------ Load states */
+
+.blocking {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  padding: var(--space-5);
+}
+
+.blockingFrame {
+  width: min(560px, 100%);
+}
+
+.blockingTitle {
+  margin-bottom: var(--space-2);
+  font: 600 var(--text-xl) / 1.3 var(--font-head);
+}
+
+/* ------------------------------------------------------------ Narrower windows */
+
+/* Laptops: the map is what shrinks, so the rails give it room first. */
+@media (max-width: 1600px) {
+  .main {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+  .main[data-details="true"] {
+    grid-template-columns: 250px minmax(0, 1fr) 290px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .main {
+    gap: 12px;
+    padding: 12px;
+  }
+  .main[data-details="true"] {
+    grid-template-columns: 228px minmax(0, 1fr) 264px;
+  }
+
+  .eye kbd {
+    display: none;
+  }
+
+  .eye {
+    min-width: 145px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    overflow: auto;
+  }
+
+  .shell {
+    height: auto;
+    min-height: 100%;
+    grid-template-rows: auto auto auto;
+  }
+
+  .topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 8px;
+    padding: 0 12px;
+  }
+
+  .crumbs {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-bottom: 12px;
+  }
+
+  .eyes {
+    width: 100%;
+    gap: 4px;
+  }
+
+  .eye {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 6px;
+    padding: 10px 4px;
+    justify-content: center;
+  }
+
+  .eye > svg {
+    width: 22px;
+    height: 22px;
+  }
+  .eye strong {
+    font-size: var(--text-md);
+  }
+  .eyePurpose {
+    font-size: 10px;
+  }
+  .brand {
+    font-size: var(--text-md);
+    gap: 6px;
+  }
+  .brand > svg {
+    width: 18px;
+  }
+  .tools {
+    gap: 0;
+  }
+  .tools .iconButton {
+    width: 30px;
+  }
+
+  .main,
+  .main[data-details="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .mapFrame {
+    grid-row: 1;
+    height: max(460px, 62vh);
+  }
+
+  .rail {
+    overflow: visible;
+    padding-top: 0;
+  }
+
+  .detailRail {
+    grid-row: 2;
+  }
+  .mapHeading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .mapHeading h1 {
+    font-size: 20px;
+  }
+  .mapHeading p {
+    max-width: 28ch;
+  }
+  .mapNavigation .button {
+    padding: 6px 8px;
+  }
+  .mapHint {
+    left: 14px;
+    text-align: center;
+  }
+  .mapLegend {
+    top: 12px;
+    left: 12px;
+    gap: 6px 12px;
+  }
+  .mapLegend > span:last-child {
+    display: none;
+  }
+
+  /* The page scrolls here, so frames take their content's height rather than dividing a fixed one. */
+  .frameGrow {
+    flex: none;
+  }
+
+  .frameSecondary {
+    flex: none;
+  }
+
+  .frameBody {
+    max-height: 46vh;
+  }
+
+  .caption {
+    left: 10px;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .captionStep {
+    grid-column: 1 / -1;
+  }
+
+  .minimap {
+    display: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .eye > svg {
+    display: none;
+  }
+  .mapNavigation {
+    flex-direction: column;
+  }
+  .mapHint {
+    font-size: 10px;
+  }
+  .mapHint span {
+    margin: 0 2px;
+  }
+}

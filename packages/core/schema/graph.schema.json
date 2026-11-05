@@ -1,0 +1,1301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "workspace": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "git": {
+            "type": "boolean"
+          },
+          "head": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "branch": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stateId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "git",
+          "head",
+          "branch",
+          "stateId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "system",
+              "app",
+              "service",
+              "api",
+              "worker",
+              "function",
+              "module",
+              "capability",
+              "library",
+              "database",
+              "cache",
+              "queue",
+              "storage",
+              "secrets",
+              "external",
+              "agent",
+              "unknown"
+            ]
+          },
+          "does": {
+            "type": "string"
+          },
+          "about": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tech": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "owner": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hasInside": {
+            "type": "boolean"
+          },
+          "repos": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "code": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "glob": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "repo",
+                "glob"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reuse": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resource": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "provider": {
+                    "type": "string",
+                    "const": "azure"
+                  },
+                  "type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "identifier": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "provider",
+                  "type",
+                  "identifier"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "manifest": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "name",
+                "version",
+                "repo",
+                "manifest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge",
+                    "code",
+                    "contract",
+                    "infrastructure",
+                    "configuration",
+                    "manifest"
+                  ]
+                },
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "line": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "detail": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "repo",
+                "file",
+                "line",
+                "detail"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "provenance": {
+            "type": "string",
+            "enum": [
+              "reviewed",
+              "extracted",
+              "both"
+            ]
+          },
+          "fingerprint": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "parent",
+          "name",
+          "kind",
+          "does",
+          "about",
+          "tech",
+          "owner",
+          "hasInside",
+          "repos",
+          "code",
+          "rules",
+          "reuse",
+          "topics",
+          "resource",
+          "dependencies",
+          "evidence",
+          "provenance",
+          "fingerprint"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verb": {
+            "type": "string",
+            "enum": [
+              "calls",
+              "reads",
+              "writes",
+              "publishes",
+              "consumes",
+              "uses"
+            ]
+          },
+          "via": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provenance": {
+            "type": "string",
+            "enum": [
+              "reviewed",
+              "extracted",
+              "both"
+            ]
+          },
+          "resolution": {
+            "type": "string",
+            "enum": [
+              "resolved",
+              "unknown"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "crossRepo": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge",
+                    "code",
+                    "contract",
+                    "infrastructure",
+                    "configuration",
+                    "manifest"
+                  ]
+                },
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "line": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "detail": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "repo",
+                "file",
+                "line",
+                "detail"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "from",
+          "to",
+          "verb",
+          "via",
+          "provenance",
+          "resolution",
+          "reason",
+          "crossRepo",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "does": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "to": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "verb": {
+                  "type": "string",
+                  "enum": [
+                    "calls",
+                    "reads",
+                    "writes",
+                    "publishes",
+                    "consumes",
+                    "uses"
+                  ]
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "connection": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "gap": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "from",
+                "to",
+                "verb",
+                "caption",
+                "connection",
+                "gap"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge",
+                    "code",
+                    "contract",
+                    "infrastructure",
+                    "configuration",
+                    "manifest"
+                  ]
+                },
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "line": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "detail": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "repo",
+                "file",
+                "line",
+                "detail"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "does",
+          "steps",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "repo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "extractor": {
+            "type": "string",
+            "enum": [
+              "csharp",
+              "typescript",
+              "openapi",
+              "arm",
+              "configuration",
+              "manifest"
+            ]
+          },
+          "filesScanned": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "facts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "partial",
+              "unavailable"
+            ]
+          },
+          "unsupported": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "line": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "construct": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "file",
+                "line",
+                "construct",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "repo",
+          "extractor",
+          "filesScanned",
+          "facts",
+          "status",
+          "unsupported"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "properties": {
+        "repos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "available",
+                  "unavailable"
+                ]
+              },
+              "reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "defaultBranch": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "defaultBranchSource": {
+                "type": "string",
+                "enum": [
+                  "configured",
+                  "remote",
+                  "inferred",
+                  "none"
+                ]
+              },
+              "onDefaultBranch": {
+                "type": "boolean"
+              },
+              "baseline": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "merge-base",
+                          "head",
+                          "explicit"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "sha",
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "repo",
+              "status",
+              "reason",
+              "defaultBranch",
+              "defaultBranchSource",
+              "onDefaultBranch",
+              "baseline"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "previousPath": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "added",
+                  "modified",
+                  "deleted",
+                  "renamed"
+                ]
+              },
+              "stage": {
+                "type": "string",
+                "enum": [
+                  "committed",
+                  "staged",
+                  "unstaged",
+                  "untracked"
+                ]
+              },
+              "parts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "repo",
+              "path",
+              "previousPath",
+              "status",
+              "stage",
+              "parts"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "commits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha": {
+                "type": "string",
+                "minLength": 1
+              },
+              "author": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "agentTrailer": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "repo",
+              "sha",
+              "author",
+              "date",
+              "subject",
+              "agentTrailer"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "manifest": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "to": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "local": {
+                "type": "boolean"
+              },
+              "parts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "repo",
+              "manifest",
+              "name",
+              "from",
+              "to",
+              "local",
+              "parts"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "part": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "added",
+                  "removed",
+                  "changed"
+                ]
+              },
+              "committed": {
+                "type": "boolean"
+              },
+              "local": {
+                "type": "boolean"
+              },
+              "agentTrailer": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "part",
+              "status",
+              "committed",
+              "local",
+              "agentTrailer"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "removedParts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "system",
+                  "app",
+                  "service",
+                  "api",
+                  "worker",
+                  "function",
+                  "module",
+                  "capability",
+                  "library",
+                  "database",
+                  "cache",
+                  "queue",
+                  "storage",
+                  "secrets",
+                  "external",
+                  "agent",
+                  "unknown"
+                ]
+              },
+              "does": {
+                "type": "string"
+              },
+              "parent": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "kind",
+              "does",
+              "parent",
+              "repo"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "repos",
+        "files",
+        "commits",
+        "dependencies",
+        "parts",
+        "removedParts"
+      ],
+      "additionalProperties": false
+    },
+    "trails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "const": 1
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question": {
+            "type": "string"
+          },
+          "finding": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "graphDigest": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "repos": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "repo": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "head": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "stateId": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "repo",
+                    "head",
+                    "stateId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "graphDigest",
+              "repos"
+            ],
+            "additionalProperties": false
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eye": {
+                  "type": "string",
+                  "enum": [
+                    "atlas",
+                    "tracer",
+                    "radar",
+                    "sonar"
+                  ]
+                },
+                "scope": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "selected": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "flow": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "flowStep": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "query": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "note": {
+                  "type": "string"
+                },
+                "targets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "part": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "fingerprint": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "part",
+                      "fingerprint"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "eye",
+                "scope",
+                "selected",
+                "flow",
+                "flowStep",
+                "query",
+                "note",
+                "targets"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "version",
+          "id",
+          "title",
+          "question",
+          "finding",
+          "author",
+          "snapshot",
+          "steps"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "repo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "file": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "line": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "part": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "severity",
+          "code",
+          "message",
+          "repo",
+          "file",
+          "line",
+          "part"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "workspace",
+    "repos",
+    "parts",
+    "connections",
+    "flows",
+    "coverage",
+    "comparison",
+    "trails",
+    "diagnostics"
+  ],
+  "additionalProperties": false
+}

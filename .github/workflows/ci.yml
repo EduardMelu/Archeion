@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Formatting and lint
+        run: npm run lint
+      - name: Types
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Shared schemas have not drifted
+        run: git diff --exit-code packages/core/schema
+      - name: Logic, WASM loading, and real Git fixtures
+        run: npm test
+      - name: Clean package install
+        run: npm run check:package
+      - name: Browser acceptance on software WebGL
+        run: |
+          npx playwright install --with-deps chromium
+          npm run e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: test-results

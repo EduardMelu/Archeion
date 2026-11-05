@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question": {
+      "type": "string"
+    },
+    "finding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "author": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "graphDigest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "repo": {
+                "type": "string",
+                "minLength": 1
+              },
+              "head": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "stateId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "repo",
+              "head",
+              "stateId"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "graphDigest",
+        "repos"
+      ],
+      "additionalProperties": false
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eye": {
+            "type": "string",
+            "enum": [
+              "atlas",
+              "tracer",
+              "radar",
+              "sonar"
+            ]
+          },
+          "scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "selected": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "flow": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "flowStep": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "query": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "note": {
+            "type": "string"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "part": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "fingerprint": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "part",
+                "fingerprint"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "eye",
+          "scope",
+          "selected",
+          "flow",
+          "flowStep",
+          "query",
+          "note",
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "title",
+    "question",
+    "finding",
+    "author",
+    "snapshot",
+    "steps"
+  ],
+  "additionalProperties": false
+}

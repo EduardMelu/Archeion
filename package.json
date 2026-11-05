@@ -1,0 +1,38 @@
+{
+  "name": "archeion-workspace",
+  "description": "Explore architecture, prepared flows, changes, and reusable capabilities across repositories.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardMelu/Archeion.git"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/viewer",
+    "packages/cli"
+  ],
+  "scripts": {
+    "build": "npm run schema -w @archeion/core && npm run build -w @archeion/viewer && npm run build -w archeion",
+    "typecheck": "tsc -p packages/core && tsc -p packages/cli && tsc -p packages/viewer && tsc -p e2e",
+    "format": "biome check --write .",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "e2e": "playwright test --project=functional",
+    "perf": "playwright test --project=perf",
+    "check:package": "node scripts/check-package.mjs",
+    "archeion": "node packages/cli/dist/cli.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.5",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  }
+}

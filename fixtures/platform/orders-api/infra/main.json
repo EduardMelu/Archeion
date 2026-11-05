@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": { "extraAccount": { "type": "string" } },
+  "resources": [
+    { "type": "Microsoft.Sql/servers", "apiVersion": "2022-05-01-preview", "name": "acme-orders-sql" },
+    {
+      "type": "Microsoft.ServiceBus/namespaces",
+      "apiVersion": "2022-10-01-preview",
+      "name": "acme-bus",
+      "resources": [
+        { "type": "topics", "apiVersion": "2022-10-01-preview", "name": "order-submitted" }
+      ]
+    },
+    { "type": "Microsoft.Cache/Redis", "apiVersion": "2023-08-01", "name": "acme-cache" },
+    { "type": "Microsoft.Storage/storageAccounts", "apiVersion": "2023-01-01", "name": "[parameters('extraAccount')]" }
+  ]
+}

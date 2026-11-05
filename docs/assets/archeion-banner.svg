@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title description">
+  <title id="title">Archeion — see the system, understand the change</title>
+  <desc id="description">An ink-blue architecture map connects three repositories and a shared resource with cyan and amber paths.</desc>
+  <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#14303d" stroke-width=".7"/></pattern></defs>
+  <rect width="1200" height="320" rx="12" fill="#050e17"/>
+  <path d="M640 0h560v320H640" fill="url(#grid)"/>
+  <g fill="none" stroke="#43deec" stroke-width="2" transform="translate(40 34)"><path d="m14 1 12 7v17l-12 7-12-7V8zM2 8l12 7 12-7M14 15v17M8 12v10l6 4 6-4V12"/></g>
+  <text x="84" y="60" fill="#43deec" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">ARCHEION</text>
+  <g fill="#e7f2f7" font-family="Arial, sans-serif" font-size="46" font-weight="700"><text x="40" y="140">See the system.</text><text x="40" y="196">Understand the change.</text></g>
+  <text x="42" y="258" fill="#99afbd" font-family="Arial, sans-serif" font-size="17">One architecture map. Multiple repositories. Four eyes.</text>
+  <g fill="none" stroke-width="2"><path d="M785 116h50l25 25h35M785 231h50l25-25h35" stroke="#43deec"/><path d="M1055 173h45v-62" stroke="#ffbd66"/></g>
+  <g fill="#091925" stroke="#4f7c8c" stroke-width="1.5"><rect x="650" y="78" width="135" height="76" rx="3"/><rect x="650" y="193" width="135" height="76" rx="3"/><rect x="895" y="135" width="160" height="76" rx="3"/></g>
+  <path d="m1040 40 11-11h112l11 11v60l-11 11h-112l-11-11z" fill="#091925" stroke="#ffbd66" stroke-width="1.5"/>
+  <g font-family="Arial, sans-serif" font-size="19" fill="#e7f2f7"><text x="666" y="116">Web</text><text x="666" y="231">Worker</text><text x="911" y="173">Core API</text><text x="1057" y="73">Resource</text></g>
+  <g font-family="monospace" font-size="11" fill="#99afbd"><text x="666" y="139">REPOSITORY A</text><text x="666" y="254">REPOSITORY B</text><text x="911" y="196">REPOSITORY C</text></g>
+  <g fill="#050e17" stroke="#43deec" stroke-width="2"><circle cx="785" cy="116" r="4"/><circle cx="785" cy="231" r="4"/><circle cx="895" cy="173" r="4"/></g>
+  <circle cx="1100" cy="137" r="5" fill="#ffbd66"/>
+  <path d="M15 45V15h30M1155 305h30v-30" fill="none" stroke="#43deec" stroke-width="2"/>
+</svg>

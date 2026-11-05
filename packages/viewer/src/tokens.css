@@ -1,0 +1,181 @@
+@import "@fontsource/chakra-petch/latin-500.css";
+@import "@fontsource/chakra-petch/latin-600.css";
+@import "@fontsource/ibm-plex-sans/latin-400.css";
+@import "@fontsource/ibm-plex-sans/latin-500.css";
+@import "@fontsource/ibm-plex-sans/latin-600.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-500.css";
+
+/* Each eye owns its instrument palette. Scene colours are mirrored in scene/theme.ts. */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #050e17;
+  --panel: #091925;
+  --raised: #102735;
+  --line: #294451;
+  --line-main: #4f7c8c;
+  --text: #e7f2f7;
+  --text-dim: #99afbd;
+  --accent: #43deec;
+  --accent-ink: #050e17;
+  --resource: #ffbd66;
+  --eye-atlas: #43deec;
+  --eye-tracer: #ffbd66;
+  --eye-radar: #ff8190;
+  --eye-sonar: #69ebbd;
+  --warn: #f2b84b;
+  --fail: #ff5a66;
+  --agent: #b69cff;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ground: #f3f4f6;
+  --panel: #ffffff;
+  --raised: #eaecf0;
+  --line: #b4bac6;
+  --line-main: #7b8494;
+  --text: #14171d;
+  --text-dim: #525c6b;
+  --accent: #00707f;
+  --accent-ink: #ffffff;
+  --warn: #8a5a00;
+  --fail: #c2202c;
+  --agent: #6a3fd6;
+  --resource: #865000;
+  --eye-atlas: #00707f;
+  --eye-tracer: #885000;
+  --eye-radar: #ae3146;
+  --eye-sonar: #006c4d;
+}
+
+:root[data-eye="tracer"] {
+  --accent: var(--eye-tracer);
+}
+:root[data-eye="radar"] {
+  --accent: var(--eye-radar);
+}
+:root[data-eye="sonar"] {
+  --accent: var(--eye-sonar);
+}
+
+:root {
+  --font-head: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --font-label: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-md: 0.8125rem;
+  --text-lg: 0.9375rem;
+  --text-xl: 1.125rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--ground);
+  color: var(--text);
+  font: 400 var(--text-md) / 1.45 var(--font-label);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+code,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    /* biome-ignore lint/complexity/noImportantStyles: a user preference must win over every rule. */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: a user preference must win over every rule. */
+    animation-duration: 0.01ms !important;
+  }
+}
